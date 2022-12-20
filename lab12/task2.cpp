@@ -29,5 +29,6 @@ int main() {
 	int currentNumbersCount = 5;
 	addNumberToArray(arr, currentNumbersCount, size, 5);
 	std::cout << arr[5] << std::endl; // this is where the new element will be added
+	delete[] arr;
 	return 0;
 }
