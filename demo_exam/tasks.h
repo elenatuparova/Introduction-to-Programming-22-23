@@ -3,9 +3,13 @@
 const int STR_LEN = 5, DOT_INDEX = 2;
 const int DAY_MIN = 1, DAY_MAX = 31;
 const int MONTH_MIN = 1, MONTH_MAX = 12;
+const int MONTHS_DAYS[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 bool CheckDate(const char arr[]) {
     if(arr == nullptr) {
+        return false;
+    }
+    if(arr[STR_LEN] != '\0') {
         return false;
     }
     for(int i = 0; i < STR_LEN; i++) {
@@ -20,6 +24,12 @@ bool CheckDate(const char arr[]) {
     if(!(day >= DAY_MIN && day <= DAY_MAX && month >= MONTH_MIN && month <= MONTH_MAX)) {
         return false;
     }
+    if(day > MONTHS_DAYS[month - 1]) {
+        if(month == 2 && day == 29) {
+            return true;
+        }
+        return false;
+    }
     return true;
 }
 
@@ -30,12 +40,14 @@ double abs(double num) {
 }
 
 bool CheckSquare(double x1, double y1, double x2, double y2) {
-//    return abs(x1) + abs(x2) == abs(y1) + abs(y2);
-    return abs(abs(x1) + abs(x2) - abs(y1) - abs(y2)) < EPSILON;
+    if(abs(x1 - x2) < EPSILON && abs(y1 - y2) < EPSILON) {
+        return false;
+    }
+    return abs(abs(x1 - x2) - abs(y1 - y2)) < EPSILON;
 }
 
-int pow(int a, int b) {
-    int result = 1;
+long pow(long a, int b) {
+    long result = 1;
     for(int i = 0; i < b; i++) {
         result *= a;
     }
