@@ -1,12 +1,13 @@
 ﻿#include <iostream>
 #include "Functions.h"
+const int MAX_LEN_DATE = 7;
 
 int main()
 {
     //Task1
-    /*char date[] = "\0";
-    std::cin >> date;
-    std::cout << CheckDate(date);*/
+    /*char myDate[MAX_LEN_DATE] = "\0";
+    std::cin >> myDate;
+    std::cout << CheckDate(myDate);*/
 
     //Task2
     /*double x1, x2, y1, y2;

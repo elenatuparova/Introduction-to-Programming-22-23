@@ -1,4 +1,8 @@
 #pragma once
+const double EPSILON = 0.01;
+const int LEN_DATE = 6;
+const int DAYS_SHORT = 30;
+const int DAYS_LONG = 31;
 
 // Task 01
 int GetLen(char arr[]) {
@@ -10,7 +14,7 @@ int GetLen(char arr[]) {
 }
 
 bool CheckDate(char date[]) {
-    if (GetLen(date) != 6) return false;
+    if (GetLen(date) != LEN_DATE) return false;
     if (date[2] != '.') return false;
 
     int month = (date[3] - '0') * 10 + (date[4] - '0');
@@ -21,31 +25,41 @@ bool CheckDate(char date[]) {
 
     if (days <= 0) return false;
 
-    if (month == 2) {
-        return days <= 28;
-    }
+    if (month == 2) return days <= 28;
 
     if (month % 2 == 0) {
-        return days <= 30;
-    }
+        if (month <= 6) return days <= DAYS_SHORT;
+        return days <= DAYS_LONG;
+    } 
     else {
-        return days <= 31;
+        if (month > 7) return days <= DAYS_SHORT;
+        return days <= DAYS_LONG;
     }
 
     return false;
 }
 
 // Task 02
+
+double Abs(double num) {
+    return (num > 0) ? num : -num;
+}
+
+double CompareWithEpsilon(double num1, double num2) {
+    return (Abs(num1 - num2) < EPSILON); // Epsilon is set to 0.01
+}
+
 bool CheckSquare(double x1, double y1, double x2, double y2) {
-    if (x2 - x1 == y2 - y1) return true;
-    if (x1 - x2 == y2 - y1) return true;
-    if (x1 - x2 == y1 - y2) return true;
-    if (x2 - x1 == y1 - y2) return true;
+    if (x1 == x2 && y1 == y2) return false;
+
+    if (CompareWithEpsilon(Abs(x2 - x1),
+                           Abs(y2 - y1))) return true;
+
     return false;
 }
 
 // Task 03
-int ReverseNum(long num) {
+long ReverseNum(long num) {
     int result = 0;
     while (num != 0) {
         result *= 10;
@@ -66,7 +80,7 @@ int LenInt(long num) {
 
 int DigitPos(long num, int k) {
     int lenNum = LenInt(num);
-    int reversedNum = ReverseNum(num);
+    long reversedNum = ReverseNum(num);
     int lenReversedNum = LenInt(reversedNum);
 
     if (k > lenNum) return -1;
@@ -76,5 +90,6 @@ int DigitPos(long num, int k) {
     for (int i = 0; i < k - 1; i++) {
         reversedNum /= 10;
     }
+
     return reversedNum % 10;
 }
