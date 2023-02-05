@@ -20,4 +20,5 @@ bool CheckSquare(double x1, double y1, double x2, double y2) {
 	if (!equals(abs(x2 - x1), abs(y2 - y1))) {
 		return false;
 	}
+	return true;
 }
