@@ -1,4 +1,13 @@
 #pragma once
+const int MAX_LEN = 5;
+const int MAX_DAYS = 31;
+const int MAX_MONTHS = 12;
+const int MIN_DAY = 1;
+const int FEBRUARY = 2;
+const int APRIL = 4;
+const int JUNE = 6;
+const int SEPTEMBER = 9;
+const int NOVEMBER = 11;
 
 int getLen(char* arr)
 {
@@ -16,9 +25,8 @@ int getLen(char* arr)
 
 bool checkDate(char* array)
 {
-	int index = 0;
 	int len = getLen(array);
-	if (len != 5)
+	if (len != MAX_LEN)
 	{
 		return false;
 	}
@@ -30,18 +38,18 @@ bool checkDate(char* array)
 		}
 	}
 
-	int days = (array[index] - '0') * 10 + (array[index + 1] - '0');
-	int	month = (array[index+3] - '0') * 10 + (array[index+4] - '0');
+	int days = (array[0] - '0') * 10 + (array[1] - '0');
+	int	month = (array[3] - '0') * 10 + (array[4] - '0');
 
-	if (days < 1 || days > 31 || month > 12 )
+	if (days < MIN_DAY || days > MAX_DAYS || month > MAX_MONTHS )
 	{
 		return false;
 	}
-	if (month == 2 && days > 29)
+	if (month == FEBRUARY && days > (MAX_DAYS-2))
 	{
 		return false;
 	}
-	if ((month == 4 || month == 6 || month == 9 || month == 11) && days > 30)
+	if ((month == APRIL || month == JUNE || month == SEPTEMBER || month == NOVEMBER) && days > (MAX_DAYS-1))
 	{
 		return false;
 	}
